@@ -1,0 +1,34 @@
+@startuml
+title StandartBank Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Person(potentialClient, "PotentialClient", "Потенциальный клиент")
+Person(client, "Client", "Существующий клиент")
+Person(backOfficeMgr, "BackOfficeMgr", "Менеджер из бэк-офиса")
+Person(frontOfficeMgr, "FromntOfficeMgr", "Менеджер из фронт-офиса")
+Person(callCenterMgr, "CallCentereMgr", "Менеджер из call-центра")
+Person(callCenterExtMgr, "CallCenterExtMgr", "Менеджер из партнерского call-центра")
+
+System(StandartBank , "StandartBank", "Банковская система. Сайт, интернет-банк, call-center, СМС-шлюз, АБС и пр.")
+
+System_Ext(CallCenterExt, "CallCenterExt", "Внешний call-центр")
+System_Ext(sms, "Телеком-оператор", "Внешний оператор по отправке СМС.")
+
+Rel(potentialClient, StandartBank , "Первичная продажа. Создает заявку на размещение депозита")
+Rel(client, StandartBank , "Размещает депозит через интернет-банк")
+
+Rel(backOfficeMgr, StandartBank , "Обрабатывает заявки в бэковых системах банка (АБС)")
+Rel(frontOfficeMgr, StandartBank , "Обрабатывает заявки, полученные из фронтальных системах банка (интернет-банк, почта от call-центра)")
+Rel(callCenterMgr, StandartBank , "Входящие и исходящие контакты с потенциальными и существующими клиентами")
+
+Rel(callCenterExtMgr, CallCenterExt, "Обслуживает существующих клиентов банка по скрпиту")
+Rel(StandartBank, CallCenterExt, "Передает информацию о состоянии счетов клентов")
+
+Rel(StandartBank, sms, "Инициирует отправку СМС для клентов")
+
+@enduml
+
+//www.plantuml.com/plantuml/png/58wnJiOm30RtF4NOM6WM9YP46G5L86Ra9bPhaTYHyqMyFd_Na-vqpmFacAq622h7Bv0MShoG_iPNeSEfXG3h4HPt0wp58iuPOXh2dMYki_3q6a-WZwUKdFwMGt3EVGxsR0fMBDbQ-fHCNkn3k7DDw-F3Ladn_VwM6Wsmtz3FQgsRNaQ_hiB6FaplkrqLeV_IgcQtQIw8xh-dkCegbP8-moSYs24GF00g9a4L2KWf2zWvSK91WGIwOe4euGaS4pTkVfnNc7aZpapinhcssmMBLDTZpvbppfsPjXljKnngflBuC591Y2ufvZw5jE4F595FA_wCyuYk3IrfXP2ywbUEKbGd1SjWJDdZJnHo3qW1pcCyHQK8pq-SLuzQhLEd-V1b5-dtii-AzqDIy9lJ5L1T0uo5eHb_eMKTT0SKSO_yFMAh2yUoa0-wRpg8t0tA0tOf5dw5mCv9kzs0ocPtXzkuURuTLlBgC5ILiriCUV_TMniLeTizs9BFBbpUI0nSbo3_X-B2WlyzVOyEwLGF-XFGsMSjzOry00fKe90-JmmEy48xOqt-iQ4fFhhcVas8e8RKLnOmRhRBh-rOEAgaXWnecDRv8rfgJ0i4lgBI5FcGmUxndk4poAuUc62ReZGlf1xWDj9RjcAWPS3EEcUIyHjlL_Y9j3KkcBPAsmVz62bvKFiJCJn654zRYL80h32HfWgUDDlvGRCTfqi53M3fEIg9lueNqnoOLuc_CItq6PuQ7F6Lb6FFI8hHyWjSHYYZfdn1P8xZLZCZSCIjAo6dZCUl38OMiX0C-84fGeloUqvastESA_QJPaeQQRYX4GKvRT8AWGvsqdqZ7bgTXq1Q5oPKTprqbEZKkVzN2ZMZ-bViYNWKakqNskiXtOntKooV3ot4vmAcFPMVsaIOjNVokYvuACt34rsqGjO88pkwlE6-5FdW3Geb-twj6FYaS9VZRNQR2oH2QIVaTvezpNeJFJ4PxHwbzr1IZOU7jT0PMOT50ZAXoSKnWZ8liIthKvv3CeNXViZafWOovtgDy8F7PeSTAwEO9pfeQWkQ8-K2Sdjgg5rGFDb0toLVaF7NPKyWh7N2Nh9EP1HNF2b0_x_v-WN-iVy5

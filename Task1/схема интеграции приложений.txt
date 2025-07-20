@@ -1,0 +1,55 @@
+@startuml
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/server>
+!include <tupadr3/font-awesome/database>
+!include <tupadr3/font-awesome/users>
+
+actor "Клиент" as client
+actor "Сотрудник фронт-офиса" as front_office
+actor "Сотрудник бэк-офиса" as back_office
+actor "Оператор кол-центра" as call_center
+actor "Сотрудник кредитования" as credit_office
+
+rectangle "Интернет-банк" as internet_bank {
+  component "ASP.NET MVC 4.5" as asp_net
+  database "MS SQL" as mssql
+}
+
+rectangle "АБС" as abs {
+  component "Delphi Клиент" as delphi
+  database "Oracle" as oracle
+}
+
+rectangle "Кол-центр" as call_center_system {
+  component "React.js" as react
+  component "Java Spring Boot" as spring
+  database "PostgreSQL" as postgresql
+}
+
+rectangle "Сайт" as website {
+  component "PHP" as php
+  component "React.js" as react_site
+}
+
+rectangle "СМС-шлюз" as sms_gateway
+rectangle "Телеком-оператор" as telecom
+
+client --> website : Подача заявки на депозит
+client --> internet_bank : Открытие депозита
+client --> call_center_system : Звонок в кол-центр
+
+website --> call_center_system : Передача заявки
+internet_bank --> abs : Интеграция (ASP.NET MVC 4.5 -> БД АБС (Oracle))
+call_center_system --> abs : Передача обращения
+
+front_office --> abs : Создание депозита
+front_office --> back_office : Запрос ставки (email)
+back_office --> credit_office : Запрос данных (email)
+credit_office --> back_office : Ответ (email)
+back_office --> front_office : Ответ (email)
+
+abs --> sms_gateway : Отправка СМС
+sms_gateway --> telecom : Передача СМС
+telecom --> client : СМС-оповещение
+
+@enduml
